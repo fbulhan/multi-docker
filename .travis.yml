@@ -1,6 +1,6 @@
+sudo: required
 language: generic
 
-sudo: required
 services:
   - docker
 
@@ -15,10 +15,8 @@ after_success:
   - docker build -t fmtech2014/multi-nginx ./nginx
   - docker build -t fmtech2014/multi-server ./server
   - docker build -t fmtech2014/multi-worker ./worker
-
-  # Log into the docker CLI
+  # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-
   # Take those images and push them to docker hub
   - docker push fmtech2014/multi-client
   - docker push fmtech2014/multi-nginx
@@ -28,11 +26,11 @@ after_success:
   deploy:
     edge: true
     provider: elasticbeanstalk
-    region: us-east-1
-    app: multi-docker
-    env: MultiDocker-env
-    bucket_name: elasticbeanstalk-us-east-1-615573403207
-    bucket_path: docker-multi
+    region: 'us-east-1'
+    app: 'multi-docker'
+    env: 'MultiDocker-env'
+    bucket_name: 'elasticbeanstalk-us-east-1-615573403207'
+    bucket_path: 'docker-multi'
     on:
       branch: master
     access_key_id: $AWS_ACCESS_KEY
