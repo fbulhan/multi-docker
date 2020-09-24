@@ -1,0 +1,36 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "fmtech2014/multi-client",
+      "hostaname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "fmtech2014/multi-server",
+      "hostaname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "fmtech2014/multi-worker",
+      "hostaname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "fmtech2014/multi-nginx",
+      "hostaname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
+    }
+  ]
+}
